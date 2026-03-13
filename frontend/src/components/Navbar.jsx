@@ -338,7 +338,7 @@ export default function Navbar() {
 
           {/* Mobile Toggle Icon */}
           <button
-            className="lg:hidden text-white text-2xl p-1 relative z-50"
+            className={`lg:hidden text-black text-2xl p-1 relative z-50 ${!scrolled ? 'text-white' : 'text-black'}`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle mobile menu"
           >
