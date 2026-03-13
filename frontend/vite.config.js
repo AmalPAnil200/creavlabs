@@ -5,7 +5,7 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: process.env.VITE_BASE_PATH || "/creavlabs/tree/main/creavlabs",
+  base: process.env.VITE_BASE_PATH || "/creavlabs/tree/main/frontend",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
