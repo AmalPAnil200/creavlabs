@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { motion } from "framer-motion";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const steps = [
@@ -63,6 +64,8 @@ export default function Process() {
     });
 
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+
+
   }, []);
 
   return (
@@ -134,6 +137,28 @@ export default function Process() {
                 }}>
                   {step.title}
                 </h2>
+                {/* scroll hint */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.8 }}
+                  style={{
+                    position: "absolute", bottom: 40,
+                    display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+                  }}
+                >
+                  <span style={{ fontSize: 11, letterSpacing: "0.2em", color: "white", textTransform: "uppercase" }}>
+                    Scroll
+                  </span>
+                  <motion.div
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    style={{
+                      width: 1, height: 40,
+                      background: "linear-gradient(to bottom, rgb(255, 255, 255), transparent)",
+                    }}
+                  />
+                </motion.div>
               </div>
             ) : (
               /* Regular Step UI */
