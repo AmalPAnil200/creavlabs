@@ -44,7 +44,7 @@ export default function QuickActions() {
   };
 
   return (
-    <div className="fixed left-4 lg:left-6 top-1/2 hidden lg:flex -translate-y-1/2 z-50 flex lg:flex-col gap-4">
+    <div className="fixed right-4 lg:right-8 top-1/2 hidden lg:flex -translate-y-1/2 z-50 flex lg:flex-col gap-4">
       {quickActions.map((action, i) => (
         <motion.div
           key={action.action}

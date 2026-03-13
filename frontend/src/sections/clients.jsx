@@ -51,7 +51,7 @@ export default function ClientSection() {
 
                 <div className="space-y-12">
                     {regions.map((region) => (
-                        <div key={region.name} className="space-y-4 pl-20 pr-20">
+                        <div key={region.name} className="space-y-4">
                             {/* Region Label */}
                             <div className="flex items-center gap-4">
                                 <span className="text-xs font-bold tracking-[0.2em] text-blue-500/80 uppercase">
