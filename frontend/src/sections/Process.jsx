@@ -127,7 +127,7 @@ export default function Process() {
                 </span>
 
                 <h2 style={{
-                  fontSize: "clamp(40px, 8vw, 80px)",
+                  fontSize: "clamp(10px, 8vw, 70px)",
                   fontWeight: "900",
                   lineHeight: "1",
                   marginBottom: "24px",
@@ -166,7 +166,7 @@ export default function Process() {
                 <span style={{ fontSize: "14px", fontWeight: "900", opacity: 0.3, letterSpacing: "10px", marginBottom: "10px" }}>
                   {step.num}
                 </span>
-                <h2 style={{ fontSize: "54px", fontWeight: "bold", marginBottom: "20px" }}>
+                <h2 style={{ fontSize: "clamp(40px, 5vw, 58px)", fontWeight: "bold", marginBottom: "20px" }}>
                   {step.title}
                 </h2>
               </>
@@ -174,10 +174,10 @@ export default function Process() {
 
             <p style={{
               maxWidth: "800px",
-              fontSize: step.isHero ? "20px" : "18px",
+              fontSize: step.isHero ? "17px" : "18px",
               lineHeight: "1.6",
               opacity: 0.7,
-              fontWeight: "300"
+              fontWeight: "300",
             }}>
               {step.description}
             </p>
