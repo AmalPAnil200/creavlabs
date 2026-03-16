@@ -1,76 +1,78 @@
 import { useState, useEffect, useRef } from 'react';
+import CompanyCircle from '@/components/ui/textcircle';
 
 const MouseParticles = () => {
   const canvasRef = useRef(null);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animationFrameId;
 
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
+  // useEffect(() => {
+  //   const canvas = canvasRef.current;
+  //   if (!canvas) return;
+  //   const ctx = canvas.getContext('2d');
+  //   let animationFrameId;
 
-    let mouse = { x: -100, y: -100 };
-    const handleMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
+  //   const resize = () => {
+  //     canvas.width = window.innerWidth;
+  //     canvas.height = window.innerHeight;
+  //   };
+  //   resize();
+  //   window.addEventListener('resize', resize);
 
-    const particles = [];
-    class Particle {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.size = Math.random() * 5 + 1;
-        this.speedX = Math.random() * 3 - 1.5;
-        this.speedY = Math.random() * 3 - 1.5;
-        // Cyan color spectrum
-        this.color = `hsla(${180 + Math.random() * 60}, 100%, 70%, ${Math.random() * 0.5 + 0.3})`;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.size > 0.1) this.size -= 0.1;
-      }
-      draw() {
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
+  //   let mouse = { x: -100, y: -100 };
+  //   const handleMouseMove = (e) => {
+  //     mouse.x = e.clientX;
+  //     mouse.y = e.clientY;
+  //   };
+  //   window.addEventListener('mousemove', handleMouseMove);
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (mouse.x > 0 && mouse.y > 0 && Math.random() > 0.4) {
-        particles.push(new Particle(mouse.x, mouse.y));
-        particles.push(new Particle(mouse.x + Math.random() * 10 - 5, mouse.y + Math.random() * 10 - 5));
-      }
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
-        if (particles[i].size <= 0.1) {
-          particles.splice(i, 1);
-          i--;
-        }
-      }
-      animationFrameId = requestAnimationFrame(animate);
-    };
-    animate();
+  //   const particles = [];
+  //   class Particle {
+  //     constructor(x, y) {
+  //       this.x = x;
+  //       this.y = y;
+  //       this.size = Math.random() * 5 + 1;
+  //       this.speedX = Math.random() * 3 - 1.5;
+  //       this.speedY = Math.random() * 3 - 1.5;
+  //       // Cyan color spectrum
+  //       this.color = `hsla(${180 + Math.random() * 60}, 100%, 70%, ${Math.random() * 0.5 + 0.3})`;
+  //     }
+  //     update() {
+  //       this.x += this.speedX;
+  //       this.y += this.speedY;
+  //       if (this.size > 0.1) this.size -= 0.1;
+  //     }
+  //     draw() {
+  //       ctx.fillStyle = this.color;
+  //       ctx.beginPath();
+  //       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+  //       ctx.fill();
+  //     }
+  //   }
 
-    return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
+  //   const animate = () => {
+  //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //     if (mouse.x > 0 && mouse.y > 0 && Math.random() > 0.4) {
+  //       particles.push(new Particle(mouse.x, mouse.y));
+  //       particles.push(new Particle(mouse.x + Math.random() * 10 - 5, mouse.y + Math.random() * 10 - 5));
+  //     }
+  //     for (let i = 0; i < particles.length; i++) {
+  //       particles[i].update();
+  //       particles[i].draw();
+  //       if (particles[i].size <= 0.1) {
+  //         particles.splice(i, 1);
+  //         i--;
+  //       }
+  //     }
+  //     animationFrameId = requestAnimationFrame(animate);
+  //   };
+  //   animate();
+
+  //   return () => {
+  //     window.removeEventListener('resize', resize);
+  //     window.removeEventListener('mousemove', handleMouseMove);
+  //     cancelAnimationFrame(animationFrameId);
+  //   };
+  // }, []);
 
   return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0" />;
 };
@@ -90,7 +92,49 @@ const navLinks = [
   { label: 'Contact', href: '#contact' },
 ];
 
+
+const services = [
+  {
+    label: "Web Design & Development",
+    href: "#services",
+    children: [
+      { label: "React Development", href: "#services" },
+      { label: "Next.js Development", href: "#services" },
+      { label: "Ecommerce Websites", href: "#services" }
+    ]
+  },
+  {
+    label: "Mobile Apps",
+    href: "#services",
+    children: [
+      { label: "React Native Apps", href: "#services" },
+      { label: "Android Apps", href: "#services" }
+    ]
+  },
+  {
+    label: "Internet Solutions",
+    href: "#services",
+    children: [
+      { label: "Website UI Design", href: "#services" },
+      { label: "App UX Design", href: "#services" }
+    ]
+  },
+  {
+    label: "Custom Software",
+    href: "#services",
+    children: [
+      { label: "CRM Systems", href: "#services" },
+      { label: "Business Tools", href: "#services" }
+    ]
+  }
+];
+
+const RotateCompanyCircle = () =>{
+  const Text="CREAVELABS • DIGITAL AGENCY •"
+}
+
 export default function Navbar() {
+  const [openService, setOpenService] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -140,7 +184,8 @@ export default function Navbar() {
           {/* Desktop Links */}
           <ul className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navLinks.map((link) => (
-              <li key={link.label}>
+              <li key={link.label} className="relative">
+
                 <button
                   onClick={() => {
                     if (link.action === "menu") {
@@ -152,10 +197,12 @@ export default function Navbar() {
                   className={`relative text-lg font-light transition-colors duration-200
         after:content-[''] after:absolute after:left-0 after:-bottom-1
         after:h-[2px] after:w-0 after:bg-white
-        after:transition-all after:duration-300 hover:after:w-full ${scrolled ? 'text-black' : 'text-white'}`}
+        after:transition-all after:duration-300 hover:after:w-full
+        ${scrolled ? "text-black" : "text-white"}`}
                 >
                   {link.label}
                 </button>
+
               </li>
             ))}
           </ul>
@@ -219,25 +266,52 @@ export default function Navbar() {
 
                         {/* Column 1: Services */}
                         <div className="flex flex-col gap-6">
-                          <h3 className="text-blue-400 font-semibold tracking-widest uppercase text-sm mb-4">Core Services</h3>
-                          {[
-                            { label: 'Web Development', href: '#services' },
-                            { label: 'Mobile Apps', href: '#services' },
-                            { label: 'UI/UX Design', href: '#services' },
-                            { label: 'Custom Software', href: '#services' }
-                          ].map((link, i) => (
-                            <motion.button
-                              key={link.label}
-                              initial={{ opacity: 0, y: 30 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 20 }}
-                              transition={{ duration: 0.4, delay: i * 0.05 + 0.1 }}
-                              onClick={() => handleNav(link.href)}
-                              className="group w-fit text-left text-3xl md:text-4xl font-bold text-slate-300 hover:text-white transition-colors duration-300"
-                              style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.02em' }}
-                            >
-                              {link.label}
-                            </motion.button>
+                          <h3 className="text-blue-400 font-semibold tracking-widest uppercase text-sm mb-4">
+                            Core Services
+                          </h3>
+
+                          {services.map((service, i) => (
+                            <div key={service.label} className="flex flex-col">
+
+                              <motion.button
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 20 }}
+                                transition={{ duration: 0.4, delay: i * 0.05 + 0.1 }}
+                                onClick={() =>
+                                  setOpenService(openService === service.label ? null : service.label)
+                                }
+                                className="group w-fit text-left text-3xl md:text-3xl font-bold text-slate-300 hover:text-white transition-colors duration-300"
+                                style={{ fontFamily: "Space Grotesk, sans-serif", letterSpacing: "-0.02em" }}
+                              >
+                                {service.label}
+                                <span className="ml-3 text-sm text-slate-400">{service.children.length}</span>
+                              </motion.button>
+
+                              {/* DROPDOWN */}
+                              <AnimatePresence>
+                                {openService === service.label && (
+                                  <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="flex flex-col gap-2 pl-4 mt-3"
+                                  >
+                                    {service.children.map((item) => (
+                                      <button
+                                        key={item.label}
+                                        onClick={() => handleNav(item.href)}
+                                        className="text-lg text-slate-400 hover:text-white transition-colors text-left"
+                                      >
+                                        {item.label}
+                                      </button>
+                                    ))}
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+
+                            </div>
                           ))}
                         </div>
 
@@ -257,7 +331,7 @@ export default function Navbar() {
                               exit={{ opacity: 0, y: 20 }}
                               transition={{ duration: 0.4, delay: i * 0.05 + 0.2 }}
                               onClick={() => handleNav(link.href)}
-                              className="group w-fit text-left text-3xl md:text-4xl font-bold text-slate-300 hover:text-white transition-colors duration-300"
+                              className="group w-fit text-left text-3xl md:text-3xl font-bold text-slate-300 hover:text-white transition-colors duration-300"
                               style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.02em' }}
                             >
                               {link.label}
@@ -281,7 +355,7 @@ export default function Navbar() {
                               exit={{ opacity: 0, y: 20 }}
                               transition={{ duration: 0.4, delay: i * 0.05 + 0.3 }}
                               onClick={() => handleNav(link.href)}
-                              className="group w-fit text-left text-3xl md:text-4xl font-bold text-slate-300 hover:text-white transition-colors duration-300"
+                              className="group w-fit text-left text-3xl md:text-3xl font-bold text-slate-300 hover:text-white transition-colors duration-300"
                               style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.02em' }}
                             >
                               {link.label}
@@ -291,46 +365,13 @@ export default function Navbar() {
 
                       </div>
 
+                      <CompanyCircle />
+
                     </div>
                   </div>
 
                   {/* Social Media & Bottom Strip inside overlay */}
-                  {/* Social Media & Bottom Strip inside overlay */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="mt-16 w-full flex flex-col items-center gap-8 pb-8"
-                  >
-                    {/* The Container needs to have high z-index and pointer-events */}
-                    <div className="flex flex-row items-center justify-center gap-6 relative z-50">
-                      {[
-                        { Icon: FaFacebookF, href: "#" },
-                        { Icon: FaInstagram, href: "#" },
-                        { Icon: FaLinkedinIn, href: "#" },
-                        { Icon: FaBehance, href: "#" }
-                      ].map((item, i) => (
-                        <a
-                          key={i}
-                          href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          /* KEY CHANGES:
-                             1. mix-blend-difference: Handles the automatic color inversion.
-                             2. bg-white: The "base" color that will be inverted.
-                             3. text-white: The icon itself must be white to be inverted.
-                          */
-                          className="w-12 h-12 rounded-full border border-current flex items-center justify-center transition-all duration-300 transform hover:scale-110 mix-blend-difference bg-white text-white"
-                        >
-                          <item.Icon className="text-xl" />
-                        </a>
-                      ))}
-                    </div>
-
-                    <p className="text-sm font-medium px-4 text-center mix-blend-difference text-white opacity-80">
-                      © {new Date().getFullYear()} CreaveLabs Agency. All rights reserved.
-                    </p>
-                  </motion.div>
+                  
                 </motion.div>
               )}
             </AnimatePresence>
