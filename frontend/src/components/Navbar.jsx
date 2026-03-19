@@ -420,7 +420,7 @@ export default function Navbar() {
 
               <div className="flex flex-col gap-7 font-light" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
 
-                {menuItems.map((item) => (
+                {navLinks.map((item) => (
                   <button
                     key={item.label}
                     onClick={() => handleNav(item.href)}
