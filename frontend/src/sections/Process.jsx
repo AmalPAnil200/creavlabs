@@ -106,7 +106,7 @@ export default function Process() {
                 <div style={{
                   position: "absolute",
                   width: "300px",
-                  height: "300px",
+                  height: "30px",
                   background: "radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)",
                   filter: "blur(40px)",
                   zIndex: -1

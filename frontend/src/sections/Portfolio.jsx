@@ -263,6 +263,7 @@ export default function Portfolio() {
           }}
             onMouseEnter={e => { e.target.style.background = '#1a1a1a'; e.target.style.color = '#f7f6f2'; }}
             onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = '#1a1a1a'; }}
+            onClick={() => window.location.href = '/showcase'}
           >
             View All Projects →
           </button>
