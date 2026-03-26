@@ -6,7 +6,7 @@ import {
   HiArrowPath
 } from 'react-icons/hi2';
 
-const quickActions = [
+export const quickActions = [
   {
     icon: HiPhone,
     label: 'Need assistance?',

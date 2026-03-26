@@ -48,7 +48,7 @@ export default function App() {
   return (
     <>
       <ChatBox />
-      <QuickActions />
+      {/* <QuickActions /> */}
 
       <Routes>
         {/* Routes that use the shared Navbar + Footer shell */}

@@ -55,6 +55,7 @@ export default function Hero() {
         overflow: 'hidden',
         paddingTop: 96,
         paddingBottom: 64,
+        marginTop: 50
       }}
     >
       {/* ── Decorative Gradient Blobs ── */}

@@ -3,6 +3,7 @@ import CompanyCircle from "@/components/ui/textcircle";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenuAlt3, HiX, HiMail, HiPhone } from "react-icons/hi";
+import { quickActions } from "./QuickActions";
 import { FaArrowRight } from "react-icons/fa";
 import {
   FaFacebookF,
@@ -133,7 +134,6 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openIndex, setOpenIndex] = useState(null);
 
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
@@ -219,7 +219,7 @@ export default function Navbar() {
 
                 {/* Dropdown */}
                 {link.children && (
-                  <ul className="absolute left-0 mt-3 w-58 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                  <ul className="absolute z-50 left-0 mt-3 w-58 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
                     {link.children.map((child) => (
                       <li key={child.label}>
                         <a
@@ -486,6 +486,30 @@ export default function Navbar() {
           >
             {mobileOpen ? <HiX /> : <HiMenuAlt3 />}
           </button>
+        </div>
+        {/* --- SECOND NAVBAR --- */}
+        <div
+          className={`w-full border-t border-gray-100 transition-all duration-300 bg-blue-500/95 backdrop-blur-md`}
+        >
+          <div className="container-custom flex items-center justify-start lg:justify-center overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] py-3 gap-8 lg:gap-14 px-4 md:px-6 ">
+            {quickActions.map((item, i) => (
+              <button
+                key={i}
+                onClick={() => handleNav(item.href)}
+                className={`
+      flex items-center gap-2 flex-shrink-0
+      text-[13px] tracking-wide font-medium
+      text-white hover:text-[#bcbcbc]
+      transition-colors mt-3 mb-3 pr-2
+      ${i !== quickActions.length - 1 ? "border-r border-white/30 mr-2" : ""}
+    `}
+                style={{ fontFamily: "'Poppins', sans-serif" }}
+              >
+                <item.icon className="text-[18px] text-[#fff]" />
+                <span>{item.action}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </motion.nav>
 
