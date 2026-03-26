@@ -59,7 +59,7 @@ export default function ChatBox() {
   };
 
   return (
-    <div className="fixed bottom-10 right-4 md:right-6 z-51 flex flex-col items-end">
+    <div className="fixed bottom-10 right-4 md:right-6 z-61 md:z-51 flex flex-col items-end">
       {/* ── Chat Window ── */}
       <AnimatePresence>
         {isOpen && (
