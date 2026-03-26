@@ -220,7 +220,7 @@ export default function SolutionPage() {
           </div>
 
           {/* Right Visual Content */}
-          <div className="flex-1 w-full max-w-[600px] relative mt-10 lg:mt-0">
+          <div className="flex-1 w-full max-w-[600px] relative mt-10 lg:mt-0 hidden md:flex">
             <motion.div
               initial={{ opacity: 0, x: 50, rotate: 2 }}
               animate={{ opacity: 1, x: 0, rotate: 0 }}

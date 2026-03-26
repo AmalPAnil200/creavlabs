@@ -131,6 +131,8 @@ export default function Navbar() {
   const [playingVideo, setPlayingVideo] = useState(null);
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openIndex, setOpenIndex] = useState(null);
+
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -478,7 +480,7 @@ export default function Navbar() {
 
           {/* Mobile Toggle Icon */}
           <button
-            className={`lg:hidden text-black text-2xl p-1 relative z-50 ${!scrolled ? "text-white" : "text-black"}`}
+            className={`lg:hidden text-black text-2xl p-1 relative z-50 ${!scrolled ? "text-black" : "text-black"}`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle mobile menu"
           >
@@ -518,14 +520,40 @@ export default function Navbar() {
                 className="flex flex-col gap-7 font-light"
                 style={{ fontFamily: "Space Grotesk, sans-serif" }}
               >
-                {navLinks.map((item) => (
-                  <button
-                    key={item.label}
-                    onClick={() => handleNav(item.href)}
-                    className="text-left text-2xl text-slate-300 hover:text-white transition"
-                  >
-                    {item.label}
-                  </button>
+                {navLinks.map((item, i) => (
+                  <div key={item.label}>
+                    {/* Parent */}
+                    <button
+                      onClick={() => {
+                        if (item.children) {
+                          setOpenIndex(openIndex === i ? null : i);
+                        } else {
+                          handleNav(item.href);
+                        }
+                      }}
+                      className="w-full text-left text-2xl text-slate-300 hover:text-white transition flex justify-between items-center"
+                    >
+                      {item.label}
+                      {item.children && (
+                        <span>{openIndex === i ? "-" : "+"}</span>
+                      )}
+                    </button>
+
+                    {/* Children */}
+                    {item.children && openIndex === i && (
+                      <div className="ml-4 mt-2 flex flex-col gap-2">
+                        {item.children.map((child) => (
+                          <button
+                            key={child.label}
+                            onClick={() => handleNav(child.href)}
+                            className="text-left text-lg text-slate-400 hover:text-white"
+                          >
+                            {child.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
 
                 {/* Contact Information */}

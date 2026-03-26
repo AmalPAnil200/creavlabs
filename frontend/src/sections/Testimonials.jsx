@@ -38,7 +38,7 @@ const testimonials = [
 
 function StarRating({ count = 5 }) {
   return (
-    <div style={{ display: 'flex', gap: 3 }}>
+    <div className="flex gap-[3px]">
       {Array.from({ length: count }).map((_, i) => (
         <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="#3A86FF"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
       ))}
@@ -50,8 +50,8 @@ export default function Testimonials() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="testimonials" style={{ background: '#0f0f0f', padding: '100px 0' }}>
-      <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px' }}>
+    <section id="testimonials" className="bg-[#0f0f0f] py-16 md:py-[100px]">
+      <div className="max-w-[1160px] mx-auto px-5 md:px-6">
 
         {/* Header */}
         <motion.div
@@ -59,20 +59,12 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          style={{ textAlign: 'center', marginBottom: 64 }}
+          className="text-center mb-10 md:mb-16"
         >
-          <span style={{
-            fontSize: 11, letterSpacing: '0.25em', textTransform: 'uppercase',
-            fontWeight: 700, color: '#3a86ff', display: 'block', marginBottom: 16,
-            fontFamily: 'Poppins, sans-serif',
-          }}>
+          <span className="text-[10px] md:text-[11px] tracking-[0.25em] uppercase font-bold text-[#3a86ff] block mb-3 md:mb-4 font-['Poppins',sans-serif]">
             What Our Clients Say
           </span>
-          <h2 style={{
-            fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 100,
-            color: '#fff', lineHeight: 1.1, margin: 0,
-            letterSpacing: '-0.03em', fontFamily: 'Poppins, sans-serif',
-          }}>
+          <h2 className="text-[clamp(28px,5vw,60px)] font-thin text-white leading-[1.1] m-0 tracking-[-0.03em] font-['Poppins',sans-serif]">
             Results That We{' '}
             <span className="text-blue-500">
               Successfully Deliver
@@ -81,12 +73,7 @@ export default function Testimonials() {
         </motion.div>
 
         {/* Featured Testimonial */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 24,
-          marginBottom: 24,
-        }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-8 lg:mb-10">
           {/* Main Quote */}
           <AnimatePresence mode="wait">
             <motion.div
@@ -95,38 +82,25 @@ export default function Testimonials() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.4 }}
-              style={{
-                background: '#1a1a1a',
-                borderRadius: 32,
-                padding: '48px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                minHeight: 320,
-                border: '1px solid rgba(255,255,255,0.06)',
-              }}
+              className="bg-[#1a1a1a] rounded-3xl p-6 md:p-10 lg:p-12 flex flex-col justify-between min-h-[300px] lg:min-h-[320px] border border-white/5"
             >
               <div>
                 <StarRating count={testimonials[active].rating} />
-                <p style={{
-                  fontSize: 20, fontWeight: 400, color: '#e5e5e5',
-                  lineHeight: 1.7, margin: '24px 0 32px',
-                  fontFamily: 'Poppins, sans-serif', letterSpacing: '-0.01em',
-                }}>
+                <p className="text-base md:text-lg lg:text-xl font-normal text-[#e5e5e5] leading-[1.7] my-6 lg:my-8 font-['Poppins',sans-serif] tracking-[-0.01em]">
                   "{testimonials[active].text}"
                 </p>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+              <div className="flex items-center gap-3.5">
                 <img
                   src={testimonials[active].avatar}
                   alt={testimonials[active].name}
-                  style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(58, 134, 255,0.4)' }}
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-[#3a86ff]/40"
                 />
                 <div>
-                  <div style={{ fontWeight: 700, color: '#fff', fontSize: 15, fontFamily: 'Poppins, sans-serif' }}>
+                  <div className="font-bold text-white text-[14px] md:text-[15px] font-['Poppins',sans-serif]">
                     {testimonials[active].name}
                   </div>
-                  <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', fontFamily: 'Poppins, sans-serif', marginTop: 2 }}>
+                  <div className="text-[12px] md:text-[13px] text-white/40 font-['Poppins',sans-serif] mt-0.5">
                     {testimonials[active].role}
                   </div>
                 </div>
@@ -135,7 +109,7 @@ export default function Testimonials() {
           </AnimatePresence>
 
           {/* Testimonial List */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div className="flex flex-col gap-3 md:gap-4">
             {testimonials.map((t, i) => (
               <motion.button
                 key={t.name}
@@ -144,34 +118,27 @@ export default function Testimonials() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
                 onClick={() => setActive(i)}
-                style={{
-                  background: active === i ? 'rgba(58, 134, 255,0.08)' : '#1a1a1a',
-                  border: `1px solid ${active === i ? 'rgba(58, 134, 255,0.3)' : 'rgba(255,255,255,0.06)'}`,
-                  borderRadius: 20,
-                  padding: '20px 24px',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  transition: 'all 0.25s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 14,
-                }}
+                className={`flex items-center gap-3.5 rounded-2xl p-4 md:p-5 lg:px-6 cursor-pointer text-left transition-all duration-300 border ${
+                  active === i 
+                    ? 'bg-[#3A86FF]/10 border-[#3A86FF]/30' 
+                    : 'bg-[#1a1a1a] border-white/5 hover:bg-white/5'
+                }`}
               >
                 <img
                   src={t.avatar}
                   alt={t.name}
-                  style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+                  className="w-10 h-10 rounded-full object-cover shrink-0"
                 />
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontWeight: 700, color: '#fff', fontSize: 14, fontFamily: 'Poppins, sans-serif' }}>
+                <div className="flex-1 min-w-0">
+                  <div className="font-bold text-white text-[13px] md:text-[14px] font-['Poppins',sans-serif]">
                     {t.name}
                   </div>
-                  <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', fontFamily: 'Poppins, sans-serif', marginTop: 2 }}>
+                  <div className="text-[11px] md:text-[12px] text-white/40 font-['Poppins',sans-serif] mt-0.5">
                     {t.role}
                   </div>
                 </div>
                 {active === i && (
-                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#3A86FF', flexShrink: 0 }} />
+                  <div className="w-2 h-2 rounded-full bg-[#3A86FF] shrink-0" />
                 )}
               </motion.button>
             ))}
@@ -184,46 +151,19 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          style={{
-            background: '#3A86FF',
-            borderRadius: 32,
-            padding: '40px 48px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: 24,
-          }}
+          className="bg-[#3A86FF] rounded-3xl p-8 md:p-10 lg:px-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
         >
           <div>
-            <h3 style={{
-              fontSize: 28, fontWeight: 800, color: '#fff', marginBottom: 8,
-              letterSpacing: '-0.02em', fontFamily: 'Poppins, sans-serif',
-            }}>
+            <h3 className="text-[22px] md:text-[28px] font-extrabold text-white mb-2 md:mb-3 tracking-[-0.02em] font-['Poppins',sans-serif]">
               Your partners for digital success
             </h3>
-            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.85)', margin: 0, fontFamily: 'Poppins, sans-serif' }}>
+            <p className="text-[14px] md:text-[15px] text-white/85 m-0 font-['Poppins',sans-serif]">
               Free advice. Book a callback with our team today.
             </p>
           </div>
           <button
             onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-            style={{
-              padding: '16px 36px', borderRadius: 999, background: '#fff',
-              color: '#3A86FF', fontSize: 15, fontWeight: 700, border: 'none',
-              cursor: 'pointer', fontFamily: 'Poppins, sans-serif',
-              display: 'flex', alignItems: 'center', gap: 8,
-              boxShadow: '0 4px 16px rgba(0,0,0,0.15)', transition: 'all 0.25s ease',
-              flexShrink: 0,
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.2)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.15)';
-            }}
+            className="px-6 md:px-9 py-3 md:py-4 rounded-full bg-white text-[#3A86FF] text-[14px] md:text-[15px] font-bold border-none cursor-pointer font-['Poppins',sans-serif] flex items-center gap-2 shadow-[0_4px_16px_rgba(0,0,0,0.15)] shrink-0 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.2)] w-full justify-center md:w-auto md:justify-start"
           >
             Let's talk
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

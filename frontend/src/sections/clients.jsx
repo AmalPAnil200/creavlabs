@@ -20,9 +20,9 @@ export default function ClientSection() {
   return (
     <section
       id="clients"
-      style={{ background: '#fff', padding: '80px 0', overflow: 'hidden' }}
+      className="bg-white py-12 md:py-20 overflow-hidden"
     >
-      <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px' }}>
+      <div className="max-w-[1160px] mx-auto px-4 md:px-6">
 
         {/* Header */}
         <motion.div
@@ -30,63 +30,37 @@ export default function ClientSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          style={{ textAlign: 'center', marginBottom: 56 }}
+          className="text-center mb-10 md:mb-14"
         >
-          <span style={{
-            fontSize: 11, letterSpacing: '0.25em', textTransform: 'uppercase',
-            fontWeight: 700, color: '#3A86FF', display: 'block', marginBottom: 16,
-            fontFamily: 'Poppins, sans-serif',
-          }}>
+          <span className="text-[10px] md:text-[11px] tracking-[0.25em] uppercase font-bold text-[#3A86FF] block mb-3 md:mb-4 font-['Poppins',sans-serif]">
             Trusted Globally
           </span>
-          <h2 style={{
-            fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 100,
-            color: '#000', lineHeight: 1.1, margin: '0 auto',
-            letterSpacing: '-0.03em', fontFamily: 'Poppins, sans-serif', maxWidth: 560,
-          }}>
+          <h2 className="text-[clamp(28px,5vw,52px)] font-thin text-black leading-[1.1] mx-auto tracking-[-0.03em] font-['Poppins',sans-serif] max-w-[560px]">
             Powering businesses across{' '}
-            <span style={{ color: '#3A86FF' }}>25+ countries</span>
+            <span className="text-[#3A86FF]">25+ countries</span>
           </h2>
         </motion.div>
 
         {/* Marquee Row 1 */}
-        <div style={{ position: 'relative', marginBottom: 16, overflow: 'hidden' }}>
+        <div className="relative mb-4 overflow-hidden">
           {/* Left fade */}
-          <div style={{
-            position: 'absolute', left: 0, top: 0, bottom: 0, width: 120,
-            background: 'linear-gradient(to right, #fff, transparent)',
-            zIndex: 2, pointerEvents: 'none',
-          }} />
+          <div className="absolute left-0 top-0 bottom-0 w-[40px] md:w-[120px] bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
           {/* Right fade */}
-          <div style={{
-            position: 'absolute', right: 0, top: 0, bottom: 0, width: 120,
-            background: 'linear-gradient(to left, #fff, transparent)',
-            zIndex: 2, pointerEvents: 'none',
-          }} />
-          <div style={{ display: 'flex', animation: 'marquee-clients 28s linear infinite', gap: 24 }}>
+          <div className="absolute right-0 top-0 bottom-0 w-[40px] md:w-[120px] bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          
+          <div 
+            className="flex gap-4 md:gap-6 pr-4 md:pr-6 w-max"
+            style={{ animation: 'marquee-clients 28s linear infinite' }}
+          >
             {[...clients, ...clients].map((client, i) => (
               <div
                 key={i}
-                style={{
-                  flexShrink: 0,
-                  background: '#f5f5f5',
-                  borderRadius: 16,
-                  padding: '20px 36px',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  minWidth: 160,
-                  height: 72,
-                  transition: 'border-color 0.25s ease',
-                }}
+                className="shrink-0 bg-[#f5f5f5] rounded-xl md:rounded-2xl px-6 md:px-9 py-3 md:py-5 border border-black/5 flex items-center justify-center min-w-[120px] md:min-w-[160px] h-[56px] md:h-[72px] transition-colors duration-300"
               >
                 <img
                   src={client.logo}
                   alt={client.name}
-                  style={{ maxHeight: 28, maxWidth: 120, objectFit: 'contain', filter: 'brightness(0.5)', transition: 'filter 0.25s ease' }}
-                  onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1)'}
-                  onMouseLeave={e => e.currentTarget.style.filter = 'brightness(0.5)'}
+                  className="max-h-[20px] md:max-h-[28px] max-w-[100px] md:max-w-[120px] object-contain brightness-50 hover:brightness-100 transition-all duration-300"
                 />
               </div>
             ))}
@@ -94,40 +68,21 @@ export default function ClientSection() {
         </div>
 
         {/* Marquee Row 2 — reverse */}
-        <div style={{ position: 'relative', overflow: 'hidden' }}>
-          <div style={{
-            position: 'absolute', left: 0, top: 0, bottom: 0, width: 120,
-            background: 'linear-gradient(to right, #fff, transparent)',
-            zIndex: 2, pointerEvents: 'none',
-          }} />
-          <div style={{
-            position: 'absolute', right: 0, top: 0, bottom: 0, width: 120,
-            background: 'linear-gradient(to left, #fff, transparent)',
-            zIndex: 2, pointerEvents: 'none',
-          }} />
-          <div style={{ display: 'flex', animation: 'marquee-clients-rev 22s linear infinite', gap: 24 }}>
+        <div className="relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-[40px] md:w-[120px] bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-[40px] md:w-[120px] bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          
+          <div 
+            className="flex gap-4 md:gap-6 pr-4 md:pr-6 w-max"
+            style={{ animation: 'marquee-clients-rev 22s linear infinite' }}
+          >
             {[...trustedBy, ...trustedBy].map((region, i) => (
               <div
                 key={i}
-                style={{
-                  flexShrink: 0,
-                  background: '#f5f5f5',
-                  borderRadius: 16,
-                  padding: '16px 28px',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  minWidth: 180,
-                  height: 56,
-                }}
+                className="shrink-0 bg-[#f5f5f5] rounded-xl md:rounded-2xl px-5 md:px-7 py-3 md:py-4 border border-black/5 flex items-center gap-2 md:gap-2.5 min-w-[140px] md:min-w-[180px] h-[48px] md:h-[56px]"
               >
-                <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#3A86FF', flexShrink: 0 }} />
-                <span style={{
-                  fontSize: 12, fontWeight: 700, letterSpacing: '0.1em',
-                  textTransform: 'uppercase', color: 'rgba(0,0,0,0.4)',
-                  fontFamily: 'Poppins, sans-serif', whiteSpace: 'nowrap',
-                }}>
+                <div className="w-1.5 h-1.5 rounded-full bg-[#3A86FF] shrink-0" />
+                <span className="text-[10px] md:text-xs font-bold tracking-[0.1em] uppercase text-black/40 font-['Poppins',sans-serif] whitespace-nowrap">
                   {region}
                 </span>
               </div>
@@ -136,26 +91,8 @@ export default function ClientSection() {
         </div>
 
         {/* View All Button */}
-        <div style={{ textAlign: 'center', marginTop: 48 }}>
-          <button
-            style={{
-              padding: '13px 32px', borderRadius: 999,
-              border: '1.5px solid rgba(255,255,255,0.12)',
-              background: 'transparent', color: 'rgba(0,0,0,0.7)',
-              fontSize: 14, fontWeight: 600, cursor: 'pointer',
-              fontFamily: 'Poppins, sans-serif', transition: 'all 0.25s ease',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = 'rgba(0,0,0,0.05)';
-              e.currentTarget.style.borderColor = 'rgba(0,0,0,0.25)';
-              e.currentTarget.style.color = '#000';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = 'transparent';
-              e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)';
-              e.currentTarget.style.color = 'rgba(0,0,0,0.7)';
-            }}
-          >
+        <div className="text-center mt-10 md:mt-12">
+          <button className="px-6 md:px-8 py-2.5 md:py-3 rounded-full border-[1.5px] border-black/10 bg-transparent text-black/70 text-xs md:text-sm font-semibold cursor-pointer font-['Poppins',sans-serif] transition-all duration-300 hover:bg-black/5 hover:border-black/25 hover:text-black">
             View All Clients →
           </button>
         </div>

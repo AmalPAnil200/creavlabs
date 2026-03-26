@@ -380,7 +380,7 @@ export default function ServicesPage() {
           </div>
 
           {/* Right Visual Content */}
-          <div className="flex-1 w-full max-w-[600px] relative mt-16 lg:mt-0">
+          <div className="flex-1 w-full max-w-[600px] relative mt-16 lg:mt-0 hidden md:flex">
              <motion.div 
                initial={{ opacity: 0, x: 50, rotate: -2 }}
                animate={{ opacity: 1, x: 0, rotate: 0 }}
@@ -401,7 +401,7 @@ export default function ServicesPage() {
                 </div>
 
                 {/* Workspace Content */}
-                <div className="flex-1 grid grid-cols-2 gap-4 h-[calc(100%-2rem)] pb-4">
+                <div className="flex-1 grid grid-cols-2 gap-4 h-[calc(100%-2rem)] pb-4 hidden">
                    {/* Column 1 */}
                    <div className="flex flex-col gap-4">
                       {/* SEO Chart Card */}
