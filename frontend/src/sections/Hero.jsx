@@ -1,173 +1,349 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  HiPhone,
-  HiCalendarDays,
-  HiDocumentText,
-  HiArrowPath
-} from 'react-icons/hi2';
-import GradientButton from '../components/GradientButton';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
-// Dummy video URLs for the slider
-const slides = [
-  {
-    id: 1,
-    video: 'https://www.pexels.com/download/video/33679186/', // Abstract tech network
-    title: 'Transforming Ideas Into Reality',
-    subtitle: 'We design and build high-performance digital platforms for ambitious brands.',
-  },
-  {
-    id: 2,
-    video: 'https://www.pexels.com/download/video/2795164/', // Coding/typing
-    title: 'Scalable Software Engineering',
-    subtitle: 'Robust, secure, and future-proof architectures built with modern tech stacks.',
-  },
-  {
-    id: 3,
-    video: 'https://www.pexels.com/download/video/7706758/', // Design/UI
-    title: 'Award-Winning Product Design',
-    subtitle: 'Intuitive user experiences that drive engagement, retention, and growth.',
-  },
+const headlines = [
+  { line1: 'Transforming Ideas', line2: 'Into Reality' },
+  { line1: 'Scalable Software', line2: 'Engineering' },
+  { line1: 'Award-Winning', line2: 'Product Design' },
 ];
 
-const quickActions = [
-  {
-    icon: HiPhone,
-    label: 'Need assistance?',
-    action: 'Request a call',
-    href: '#contact',
-    color: 'from-blue-500/20 to-cyan-500/20'
-  },
-  {
-    icon: HiCalendarDays,
-    label: 'Schedule time',
-    action: 'Get an appointment',
-    href: '#contact',
-    color: 'from-violet-500/20 to-purple-500/20'
-  },
-  {
-    icon: HiDocumentText,
-    label: 'Ready to start?',
-    action: 'Get a free proposal',
-    href: '#contact',
-    color: 'from-indigo-500/20 to-blue-500/20'
-  },
-  {
-    icon: HiArrowPath,
-    label: 'Existing client?',
-    action: 'Request an update',
-    href: '#contact',
-    color: 'from-emerald-500/20 to-teal-500/20'
-  }
+const stats = [
+  { value: '100+', label: 'Projects Delivered' },
+  { value: '50+', label: 'Global Clients' },
+  { value: '10+', label: 'Years Experience' },
+];
+
+const services = [
+  'Web Development',
+  'Mobile Apps',
+  'UI/UX Design',
+  'Digital Strategy',
+  'Software Solutions',
+  'SEO & Marketing',
 ];
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate();
+  const containerRef = useRef(null);
 
-  const scroll = (id) => document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end start'] });
+  const blobY1 = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const blobY2 = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
-  // Auto-advance slides every 6 seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-    }, 6000);
+      setCurrent((prev) => (prev + 1) % headlines.length);
+    }, 4000);
     return () => clearInterval(timer);
   }, []);
 
   return (
     <section
+      ref={containerRef}
       id="hero"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#09090b]"
+      style={{
+        minHeight: '100vh',
+        background: '#fafaf8',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+        paddingTop: 96,
+        paddingBottom: 64,
+      }}
     >
-      {/* ── Background Video Slider ── */}
-      <AnimatePresence mode="popLayout" initial={false}>
+      {/* ── Decorative Gradient Blobs ── */}
+      <motion.div
+        style={{
+          position: 'absolute',
+          top: '10%',
+          right: '-5%',
+          width: 560,
+          height: 560,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(134,239,172,0.35) 0%, rgba(56,189,248,0.2) 45%, transparent 70%)',
+          filter: 'blur(40px)',
+          pointerEvents: 'none',
+          y: blobY1,
+        }}
+      />
+      <motion.div
+        style={{
+          position: 'absolute',
+          bottom: '5%',
+          left: '-8%',
+          width: 480,
+          height: 480,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(167,139,250,0.3) 0%, rgba(99,102,241,0.15) 50%, transparent 70%)',
+          filter: 'blur(50px)',
+          pointerEvents: 'none',
+          y: blobY2,
+        }}
+      />
+      <motion.div
+        style={{
+          position: 'absolute',
+          top: '40%',
+          left: '30%',
+          width: 300,
+          height: 300,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(251,207,232,0.4) 0%, transparent 70%)',
+          filter: 'blur(50px)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* ── Subtle dot grid ── */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* ── Content ── */}
+      <motion.div
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          maxWidth: 1160,
+          margin: '0 auto',
+          padding: '0 24px',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          y: textY,
+        }}
+      >
+        {/* Pill Badge */}
         <motion.div
-          key={current}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: 'easeInOut' }}
-          className="absolute inset-0 w-full h-full"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '6px 18px',
+            borderRadius: 999,
+            border: '1.5px solid rgba(0,0,0,0.1)',
+            background: 'rgba(255,255,255,0.8)',
+            backdropFilter: 'blur(10px)',
+            fontSize: 12,
+            fontWeight: 700,
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            color: '#1a1a1a',
+            marginBottom: 36,
+            boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+          }}
         >
-          {/* Dimming overlay so text is readable */}
-          <div className="absolute inset-0 bg-black/60 z-10 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent z-10" />
-          <div className="absolute inset-0 noise-overlay opacity-30 z-10 pointer-events-none" />
-
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-            src={slides[current].video}
-          />
+          <span style={{
+            width: 7,
+            height: 7,
+            borderRadius: '50%',
+            background: '#3a86ff',
+            boxShadow: '0 0 8px rgba(58,134,255,0.8)',
+            display: 'inline-block',
+            animation: 'pulse-dot 2s ease-in-out infinite',
+          }} />
+          Available for new projects
         </motion.div>
-      </AnimatePresence>
 
-      {/* ── Foreground Text Content ── */}
-      <div className="container-custom relative z-20 w-full pt-32 pb-20 flex flex-col items-left text-left">
-
-        {/* Dynamic Title */}
-        <div className="h-[140px] sm:h-[180px] md:h-[100px] flex items-center justify-center mb-2 w-full">
+        {/* Animated Headline */}
+        <div style={{ height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', marginBottom: 28 }}>
           <AnimatePresence mode="wait">
             <motion.h1
               key={current}
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -40 }}
-              transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
-              className="text-4xl sm:text-6xl md:text-7xl lg:text-[60px] font-bold leading-[1.1] tracking-tight text-white max-w-5xl"
-              style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+              initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -30, filter: 'blur(8px)' }}
+              transition={{ duration: 0.65, ease: [0.33, 1, 0.68, 1] }}
+              style={{
+                fontSize: 'clamp(48px, 8vw, 88px)',
+                fontWeight: 800,
+                lineHeight: 1.05,
+                letterSpacing: '-0.03em',
+                color: '#0f0f0f',
+                fontFamily: 'Poppins, sans-serif',
+                margin: 0,
+              }}
             >
-              {slides[current].title}
+              {headlines[current].line1}
+              <br />
+              <span style={{
+                WebkitTextStroke: '2px #0f0f0f',
+                WebkitTextFillColor: 'transparent',
+                color: 'transparent',
+              }}>
+                {headlines[current].line2}
+              </span>
             </motion.h1>
           </AnimatePresence>
         </div>
 
-        {/* Dynamic Subtext */}
-        <div className="h-[50px] md:h-[100px] lg:h-[40px] flex items-center justify-left lg:justify-center mb-16 w-full">
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={current}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-lg md:text-[18px] text-slate-300 font-light max-w-2xl leading-relaxed drop-shadow-lg"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
-              {slides[current].subtitle}
-            </motion.p>
-          </AnimatePresence>
-        </div>
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          style={{
+            fontSize: 18,
+            color: '#6b6b6b',
+            fontWeight: 400,
+            lineHeight: 1.7,
+            maxWidth: 600,
+            marginBottom: 48,
+            fontFamily: 'Poppins, sans-serif',
+          }}
+        >
+          We're a team of expert designers, developers, and strategists delivering
+          digital success for a decade. From web apps to mobile — we build your vision.
+        </motion.p>
 
-        
-      </div>
-
-      {/* ── Slider Navigation / Progress ── */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4">
-        {slides.map((_, i) => (
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', marginBottom: 72 }}
+        >
           <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className="group relative w-16 h-1.5 rounded-full bg-white/20 overflow-hidden cursor-pointer"
+            onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+            style={{
+              padding: '16px 36px',
+              borderRadius: 999,
+              border: 'none',
+              background: '#3a86ff',
+              color: '#fff',
+              fontSize: 15,
+              fontWeight: 700,
+              fontFamily: 'Poppins, sans-serif',
+              cursor: 'pointer',
+              letterSpacing: '0.01em',
+              boxShadow: '0 8px 24px rgba(58,134,255,0.35)',
+              transition: 'all 0.25s ease',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(58,134,255,0.35)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(58,134,255,0.35)';
+            }}
           >
-            {/* Progress bar fill for active slide */}
-            {i === current && (
-              <motion.div
-                initial={{ x: '-100%' }}
-                animate={{ x: '0%' }}
-                transition={{ duration: 6, ease: 'linear' }}
-                className="absolute inset-0 bg-blue-500 rounded-full"
-              />
-            )}
-            {/* Hover preview line */}
-            <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            Let's Talk
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
           </button>
-        ))}
-      </div>
 
+          <button
+            onClick={() => document.querySelector('#portfolio')?.scrollIntoView({ behavior: 'smooth' })}
+            style={{
+              padding: '16px 36px',
+              borderRadius: 999,
+              border: '1.5px solid rgba(0,0,0,0.15)',
+              background: 'rgba(255,255,255,0.7)',
+              backdropFilter: 'blur(10px)',
+              color: '#1a1a1a',
+              fontSize: 15,
+              fontWeight: 600,
+              fontFamily: 'Poppins, sans-serif',
+              cursor: 'pointer',
+              transition: 'all 0.25s ease',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = '#fff';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,0,0,0.1)';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.7)';
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            View Our Work
+          </button>
+        </motion.div>
+
+        {/* Stats Row */}
+        
+      </motion.div>
+
+      {/* ── Services Scrolling Ticker ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          borderTop: '1px solid rgba(0,0,0,0.08)',
+          background: 'rgba(255,255,255,0.7)',
+          backdropFilter: 'blur(10px)',
+          padding: '14px 0',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            gap: 48,
+            animation: 'marquee-hero 20s linear infinite',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {[...services, ...services, ...services].map((s, i) => (
+            <span
+              key={i}
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color: '#1a1a1a',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 16,
+              }}
+            >
+              {s}
+              <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#22c55e', display: 'inline-block', flexShrink: 0 }} />
+            </span>
+          ))}
+        </div>
+      </motion.div>
+
+      <style>{`
+        @keyframes pulse-dot {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.6; transform: scale(1.3); }
+        }
+        @keyframes marquee-hero {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.33%); }
+        }
+      `}</style>
     </section>
   );
 }

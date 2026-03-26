@@ -10,6 +10,7 @@ import QuickActions from './components/QuickActions';
 
 // Home page sections
 import Hero from './sections/Hero';
+import WhyUs from './sections/WhyUs';
 import Portfolio from './sections/Portfolio';
 import Process from './sections/Process';
 import Testimonials from './sections/Testimonials';
@@ -30,6 +31,7 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <WhyUs />
       <Portfolio />
       <Process />
       <Testimonials />

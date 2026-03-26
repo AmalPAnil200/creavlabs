@@ -55,7 +55,7 @@ export default function QuickActions() {
         >
           <button
             onClick={() => scroll(action.href)}
-            className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/10 bg-blue-500/30 backdrop-blur-md flex items-center justify-center text-white text-xl md:text-2xl transition-all duration-300 hover:bg-white/10 hover:border-white/20 active:scale-90 relative overflow-hidden group-hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] cursor-pointer"
+            className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/10 bg-blue-500 backdrop-blur-md flex items-center justify-center text-white text-xl md:text-2xl transition-all duration-300 hover:bg-white/10 hover:border-white/20 active:scale-90 relative overflow-hidden group-hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] cursor-pointer"
             aria-label={action.action}
           >
             {/* Background gradient accent */}
@@ -64,16 +64,16 @@ export default function QuickActions() {
           </button>
 
           {/* Tooltip Label (Slides out on hover) */}
-          <div className="hidden md:block absolute left-[120%] px-4 py-2 bg-black/80 backdrop-blur-md border border-white/10 rounded-xl text-white text-xs font-semibold whitespace-nowrap opacity-0 -translate-x-5 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shadow-2xl z-20">
+          <div className="hidden md:block absolute right-[120%] px-4 py-2 bg-black/80 backdrop-blur-md border border-white/10 rounded-xl text-white text-xs font-semibold whitespace-nowrap opacity-0 -translate-x-5 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shadow-2xl z-20">
             <div className="flex flex-col">
-              <span className="text-[10px] text-blue-400 uppercase tracking-widest">
+              <span className="text-[10px] text-blue-500 uppercase tracking-widest">
                 {action.label}
               </span>
               <span>{action.action}</span>
             </div>
 
             {/* Arrow */}
-            <div className="absolute right-full top-1/2 -translate-y-1/2 w-2 h-2 bg-black/80 border-l border-b border-white/10 rotate-45 -mr-1" />
+            <div className="absolute left-full top-1/2 -translate-y-1/2 w-2 h-2 bg-black/80 border-l border-b border-white/10 rotate-45 -mr-1" />
           </div>
         </motion.div>
       ))}

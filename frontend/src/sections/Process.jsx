@@ -1,189 +1,195 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { motion } from "framer-motion";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 const steps = [
   {
-    num: "Intro",
-    title: "our working process in 3 steps",
-    description: "We, Team CreaveLabs are here to process your dreams into reality, the dreams to build your web presence. Which will make your world more beautiful. Let us be your technical partners.. and leave the rest to us",
-    bg: "#000000",
-    color: "#ffffff",
-    isHero: true // Tag to identify the special styling
+    num: '01',
+    title: 'Understand Your Needs',
+    description:
+      'We listen first, then strategize. Give us the opportunity to deeply study what you need — your goals, your audience, your edge.',
+    accent: false,
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+    ),
   },
   {
-    num: "01",
-    title: "We Understand your Needs",
-    description: "Give us an opportunity to study what you need exactly.",
-    bg: "#ffffff",
-    color: "#000000"
+    num: '02',
+    title: 'Analyse & Propose',
+    description:
+      'Our expert team studies your organization and submits a detailed proposal tailored precisely to your goals and constraints.',
+    accent: true,
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+      </svg>
+    ),
   },
   {
-    num: "02",
-    title: "Analyse Your Requirements",
-    description: "Our expert team will study your organization and submit you a proposal.",
-    bg: "#000000",
-    color: "#ffffff"
+    num: '03',
+    title: 'Deliver the Best Solution',
+    description:
+      'Our international team of experts delivers with quality that meets the highest global standards — on time, every time.',
+    accent: false,
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5" />
+        <path d="M2 12l10 5 10-5" />
+      </svg>
+    ),
   },
-  {
-    num: "03",
-    title: "Provide the Best Solution",
-    description: "Our international team of experts can deliver you an exposure with international standards.",
-    bg: "#ffffff",
-    color: "#000000"
-  }
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.15 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
+
 export default function Process() {
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const container = containerRef.current;
-    const panels = gsap.utils.toArray(".stack-panel");
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container,
-        start: "top top",
-        end: () => `+=${panels.length * 100}%`,
-        pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    panels.forEach((panel, i) => {
-      if (i > 0) {
-        tl.fromTo(panel, { yPercent: 100 }, { yPercent: 0, ease: "none" }, i);
-      }
-      if (i < panels.length - 1) {
-        tl.to(panel, { scale: 0.9, filter: "brightness(0.5)", ease: "none" }, i + 1);
-      }
-    });
-
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
-
-
-  }, []);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
 
   return (
-    <div style={{ background: "#07070f" }}>
-      <section ref={containerRef} style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+    <section
+      id="process"
+      ref={sectionRef}
+      className="relative bg-[#fafaf8] py-24 md:py-10 overflow-hidden"
+    >
+      {/* Subtle grid background */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+          maskImage:
+            'radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%)',
+          WebkitMaskImage:
+            'radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%)',
+        }}
+      />
 
-        {/* Background Grid Lines */}
-        <div style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-          zIndex: 0
-        }} />
+      <div className="relative z-10 max-w-[1200px] mx-auto px-5 md:px-10 lg:px-16">
+        {/* ── Header ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="text-center mb-14 md:mb-20"
+        >
+          <span className="inline-block px-5 py-2 rounded-full border border-black/10 bg-black/[0.03] text-[11px] font-semibold tracking-[0.2em] uppercase text-[#555] font-[Poppins,sans-serif] mb-6">
+            Our Process
+          </span>
 
-        {steps.map((step, i) => (
-          <div
-            key={i}
-            className="stack-panel"
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              background: step.bg,
-              color: step.color,
-              zIndex: i + 1,
-              padding: "40px",
-              textAlign: "center"
-            }}
-          >
-            {/* Special UI for Intro Card */}
-            {step.isHero ? (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                {/* Glow Effect */}
-                <div style={{
-                  position: "absolute",
-                  width: "300px",
-                  height: "30px",
-                  background: "radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)",
-                  filter: "blur(40px)",
-                  zIndex: -1
-                }} />
+          <h2 className="text-4xl md:text-5xl lg:text-[60px] font-light leading-[1.1] tracking-[-0.03em] text-[#0f0f0f] font-[Poppins,sans-serif] mb-5">
+            How we work,
+            <span className="text-blue-500">Step by step.</span>
+          </h2>
 
-                <span style={{
-                  padding: "8px 20px",
-                  borderRadius: "100px",
-                  border: "1px solid rgba(255,255,255,0.2)",
-                  background: "rgba(255,255,255,0.05)",
-                  fontSize: "12px",
-                  textTransform: "uppercase",
-                  letterSpacing: "3px",
-                  marginBottom: "24px",
-                  backdropFilter: "blur(10px)"
-                }}>
-                  CreaveLabs Process
-                </span>
+          <p className="text-[17px] leading-relaxed text-[#666] max-w-[520px] mx-auto font-[Poppins,sans-serif] font-light">
+            A proven three-step framework that turns your vision into a world-class digital product.
+          </p>
+        </motion.div>
 
-                <h2 style={{
-                  fontSize: "clamp(10px, 8vw, 70px)",
-                  fontWeight: "900",
-                  lineHeight: "1",
-                  marginBottom: "24px",
-                  background: "linear-gradient(to bottom, #ffffff 30%, #a5a5a5 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent"
-                }}>
-                  {step.title}
-                </h2>
-                {/* scroll hint */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
-                  style={{
-                    position: "absolute", bottom: 40,
-                    display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
-                  }}
+        {/* ── Steps Grid ── */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {steps.map((step, i) => (
+            <motion.div
+              key={i}
+              variants={cardVariants}
+              className={[
+                'group flex flex-col rounded-3xl p-8 lg:p-10 border transition-all duration-300 cursor-default',
+                'hover:-translate-y-1.5',
+                step.accent
+                  ? 'bg-[#0f0f0f] border-[#0f0f0f] shadow-[0_8px_40px_rgba(0,0,0,0.22)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)]'
+                  : 'bg-white border-black/[0.07] shadow-[0_4px_24px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.10)]',
+              ].join(' ')}
+            >
+              {/* Number + Icon row */}
+              <div className="flex items-center justify-between mb-6">
+                <span
+                  className={[
+                    'text-[13px] font-bold tracking-[0.1em] font-[Poppins,sans-serif]',
+                    step.accent ? 'text-white/40' : 'text-[#aaa]',
+                  ].join(' ')}
                 >
-                  <span style={{ fontSize: 11, letterSpacing: "0.2em", color: "white", textTransform: "uppercase" }}>
-                    Scroll
-                  </span>
-                  <motion.div
-                    animate={{ y: [0, 8, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                    style={{
-                      width: 1, height: 40,
-                      background: "linear-gradient(to bottom, rgb(255, 255, 255), transparent)",
-                    }}
-                  />
-                </motion.div>
-              </div>
-            ) : (
-              /* Regular Step UI */
-              <>
-                <span style={{ fontSize: "14px", fontWeight: "900", opacity: 0.3, letterSpacing: "10px", marginBottom: "10px" }}>
                   {step.num}
                 </span>
-                <h2 style={{ fontSize: "clamp(40px, 5vw, 58px)", fontWeight: "bold", marginBottom: "20px" }}>
-                  {step.title}
-                </h2>
-              </>
-            )}
 
-            <p style={{
-              maxWidth: "800px",
-              fontSize: step.isHero ? "17px" : "18px",
-              lineHeight: "1.6",
-              opacity: 0.7,
-              fontWeight: "300",
-            }}>
-              {step.description}
-            </p>
-          </div>
-        ))}
-      </section>
-    </div>
+                <span
+                  className={[
+                    'w-13 h-13 rounded-[14px] flex items-center justify-center text-blue-500',
+                    step.accent ? 'bg-white/[0.08]' : 'bg-[#f4f4f0]',
+                  ].join(' ')}
+                >
+                  {step.icon}
+                </span>
+              </div>
+
+              {/* Divider */}
+              <div
+                className={[
+                  'h-px mb-6',
+                  step.accent ? 'bg-white/10' : 'bg-black/[0.07]',
+                ].join(' ')}
+              />
+
+              {/* Title */}
+              <h3
+                className={[
+                  'text-xl lg:text-2xl font-bold leading-snug tracking-[-0.02em] font-[Poppins,sans-serif] mb-4',
+                  step.accent ? 'text-white' : 'text-[#0f0f0f]',
+                ].join(' ')}
+              >
+                {step.title}
+              </h3>
+
+              {/* Description */}
+              <p
+                className={[
+                  'text-[15px] leading-[1.75] font-light font-[Poppins,sans-serif] flex-1',
+                  step.accent ? 'text-white/55' : 'text-[#666]',
+                ].join(' ')}
+              >
+                {step.description}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* ── Bottom CTA ── */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.7, duration: 0.6 }}
+          className="text-center mt-12 text-[15px] text-[#888] font-[Poppins,sans-serif]"
+        >
+          Ready to start?&nbsp;
+          <a
+            href="#contact"
+            className="text-blue-500 font-semibold border-b border-transparent hover:border-blue-500 transition-colors duration-200"
+          >
+            Let&apos;s talk →
+          </a>
+        </motion.p>
+      </div>
+    </section>
   );
 }
